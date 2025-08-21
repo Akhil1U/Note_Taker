@@ -1,0 +1,24 @@
+{% extends "base.html "%}
+{% block title%} homescreen {% endblock%}
+
+{% block header %}
+    <span class="menu">
+        <ui>
+            <li style="list-style: none; float: right; margin-top: 25px;">
+                <a href="{% url 'login' %}"> Log In </a>
+            </li>
+        </ui>
+    </span>
+{% endblock %}
+{% block content %}
+    <h2> Welcome to Note Taker....</h2>
+
+    <br></br>
+
+    <p>
+        Please register to access note and track records of your notes <a href="{% url 'register' %}"> Register Here</a>
+    </p>
+    
+
+
+{% endblock%}
