@@ -1,4 +1,5 @@
-@import url(//fonts.googleapis.com/css?family=muli);
+@import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
 
 /* Basic css */
 
@@ -12,13 +13,6 @@ p{
     line-height: 1.8;
 }
 
-a{
-    color:#026efd;
-    text-decoration: none;
-}
-a:hover {
-    color: #026efd;
-}
 h1, h2, h3, h4, h5, h6 { font-family: "Muli", sans-serif; font-weight: normal;}
 
 h1{
@@ -66,13 +60,11 @@ ol{
 }
 
 #header ul.menu li.selected a, #header ul.menu li.selected a:hover {
-    color: #026efd;
+    color: #010914;
     font-weight: bold;
 }
 
-#header a{
-    color: #fff;
-}
+
 #header .user{
     float: right;
     padding-top: 4px;

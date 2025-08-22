@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 # from .models import Task
 from .form import *
+from .models import Note
 
 
 def Home(request):  # main screen
@@ -24,3 +25,17 @@ def register(request):
     
     return render(request, 'registration/register.html', {'user_form': user_form})
 
+
+@login_required
+def editor_view(request):
+    # Get or create note for user
+    note, created = Note.objects.get_or_create(user=request.user)
+
+    if request.method == 'POST':
+        form = NoteForm(request.POST, instance=note)
+        if form.is_valid():
+            form.save()
+    else:
+        form = NoteForm(instance=note)
+
+    return render(request, 'note.html', {'form': form})

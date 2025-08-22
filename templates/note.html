@@ -1,25 +1,106 @@
 {% extends "base.html "%}
+{% load static %}
 {% block title%} homescreen {% endblock%}
 
 {% block header %}
-    <span class="menu">
-        <ui>
-            <li style="list-style: none; float: right; margin-top: 25px;">
-                <a href="#"> profile </a>
-            </li>
-        </ui>
-    </span>
+<style>
+  .menu {
+    margin-top: 3%;
+    float: right;
+
+  }
+  .profile-btn {
+    background: transparent;
+    border: none;
+    color: #f3f7cc;
+    font-weight: 500;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 8px 12px;
+  }
+  .profile-dropdown {
+    display: none;
+    margin-right: 1%;
+    position: absolute;
+    right: 0;
+    background-color: #fff;
+    min-width: 220px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+  .profile-dropdown a,
+  button {
+    background: transparent;
+    border: none;
+    color: #5160b0;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .profile-dropdown a:hover,
+  .profile-dropdown button:hover {
+    color: #253381;
+    font-size: 16px;
+  }
+  .profile-dropdown p {
+    color: #444242;
+    margin-left: 4px;
+  }
+</style>
+<div class="menu" style="float: right;">
+  <button class="profile-btn" onclick="toggleDropdown(event)">Profile ▾</button>
+
+  <div id="profileDropdown" class="profile-dropdown">
+    <p aria-placeholder="username"> {{ user.first_name }} {{ user.last_name }}</p>
+
+    <a style="padding-left: 4px; text-decoration: none;" href="{% url 'password_change'%}">Change Password</a>
+
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <button type="submit">Logout</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const dropdown = document.getElementById('profileDropdown');
+
+  function toggleDropdown(event) {
+    event.stopPropagation(); // Prevent click from bubbling
+    dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+  }
+  // Hide dropdown if user clicks outside
+  document.addEventListener('click', function (event) {
+    const isClickInside = dropdown.contains(event.target) || event.target.closest('.profile-btn');
+    if (!isClickInside) {
+      dropdown.style.display = 'none';
+    }
+  });
+</script>
 {% endblock %}
+
+
 {% block content %}
-    <h2> Welcome to Note Taker....</h2>
+<h2> Welcome to Note Taker..</h2>
 
-    <br></br>
-    #<!-- #TinyMCE -->
-    #<!-- ckeditor -->
-    #<!-- SimpleMDE (for Markdown lovers) -->
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
 
-   
-    
-
+<!-- Include TinyMCE script -->
+<script src="{% static 'tinymce/js/tinymce/tinymce.min.js' %}"></script>
+<script>
+  tinymce.init({
+    license_key: 'gpl',
+    selector: '#id_content',
+    plugins: 'link image code lists',
+    toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright | bullist numlist | link image',
+    height: 500
+  });
+</script>
 
 {% endblock%}

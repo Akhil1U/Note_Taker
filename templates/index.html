@@ -2,10 +2,16 @@
 {% block title%} homescreen {% endblock%}
 
 {% block header %}
+<style>
+    .menu ui li a:hover{
+        font-size: 16px;
+        color: #f1f7c4;
+    }
+</style>
     <span class="menu">
         <ui>
             <li style="list-style: none; float: right; margin-top: 25px;">
-                <a href="{% url 'login' %}"> Log In </a>
+                <a style="color:  #f3f7cc; text-decoration: none;" href="{% url 'login' %}"> Log In </a>
             </li>
         </ui>
     </span>

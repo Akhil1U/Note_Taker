@@ -12,3 +12,7 @@ __pycache__/
 db.sqlite3
     *.sqlite
     data/*.db
+
+
+# tynymce text editor
+static/tinymce
