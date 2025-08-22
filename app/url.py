@@ -2,19 +2,22 @@ from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
 
+
 urlpatterns = [
     path('',views.Home, name='homesreen'),
 
 
      # register user
     path('register/',views.register, name='register'),
+    path('note/',views.editor_view, name = 'homenote'),
 
     # log in 
     path('login/',auth_views.LoginView.as_view(),name='login'),
+    path('authenticate/',)
 
+    
      path('logout/',auth_views.LogoutView.as_view(template_name = 'registration/log_out.html'), name='logout'),
 
-    path('note/',views.editor_view, name = 'homenote'),
 
     # password change 
 

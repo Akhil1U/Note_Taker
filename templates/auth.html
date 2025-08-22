@@ -1,0 +1,9 @@
+{% if user.is_authenticated %}
+<form action="" method="post"
+
+
+
+{% else %}
+  <!-- Not authenticated -->
+  <p style="color: white;">You must <a href="{% url 'login' %}">log in</a> to view your notes.</p>
+{% endif %}
