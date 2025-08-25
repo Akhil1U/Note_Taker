@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import never_cache
+from django.contrib.auth import logout
+
 
 # from .models import Task
 from .form import *
 from .models import Note
 
-
+@never_cache
 def Home(request):  # main screen
     return render(request, 'index.html',{'section':'homescreen'})
 
@@ -27,12 +30,8 @@ def register(request):
     
     return render(request, 'registration/register.html', {'user_form': user_form})
 
-def auth_requere(request):
-    if request.method == 'POST':
-        return render(auth_requere,'auth.html') 
-
 @login_required
-@cache_control(no_cache=True, must_revalidate=True)
+@never_cache
 def editor_view(request):
     # Get or create note for user
     note, created = Note.objects.get_or_create(user=request.user)
@@ -45,3 +44,24 @@ def editor_view(request):
         form = NoteForm(instance=note)
 
     return render(request, 'note.html', {'form': form})
+
+# def auth_requere(request):
+#     return render(auth_requere,'auth.html') 
+
+
+
+def logout_view(request):
+    # Log out and clear the session
+    logout(request)
+
+    # Redirect to homepage
+    response = redirect('/')  
+
+    response.delete_cookie('sessionid')
+
+    # Clear cache 
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
+
+    return response

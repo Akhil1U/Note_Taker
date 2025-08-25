@@ -1,7 +1,7 @@
 {% extends "base.html "%}
 {% load static %}
+{}
 {% block title%} homescreen {% endblock%}
-{% if user.is_authenticated %}
 {% block header %}
 
 <style>
@@ -110,8 +110,7 @@
     height: 500
   });
 </script>
-{% else %}
-<!-- Not authenticated -->
-<p style="color: white;">You must <a href="{% url 'login' %}">log in</a> to view your notes.</p>
-{% endif %}
+
+
+
 {% endblock%}

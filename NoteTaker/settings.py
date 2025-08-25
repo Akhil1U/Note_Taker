@@ -135,7 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = '/note/'
 LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+
 
 # session time 30 minutes
 SESSION_COOKIE_AGE = 1800 
